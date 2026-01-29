@@ -7,7 +7,7 @@ body {
     margin: 0;
     font-family: 'Inter', sans-serif;
 background-color: #fdfbfb;
-
+}
 
 
 
@@ -107,3 +107,4 @@ h1, h2, h3 {
 .download-btn:hover {
     background-color: #444;
 }
+
