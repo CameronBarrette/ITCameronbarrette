@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Endorsements | Cameron Barrette</title>
-<link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endorsements | Cameron Barrette</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-<div class="content">
-    <h1>Leave an Endorsement</h1>
+<header class="top-banner">
+    <div class="left">
+        <img src="me.jpg.webp" alt="Cameron Barrette" class="profile-pic">
+    </div>
+    <div class="center">Cameron Barrette | IT & CyberSecurity</div>
+    <div class="right">
+        <a href="https://www.linkedin.com/in/cameron-barrette-it/" target="_blank" class="top-link">
+            LinkedIn
+        </a>
+    </div>
+</header>
 
-    <input id="name" placeholder="Your Name">
-    <input id="contact" placeholder="Email or Phone (optional)">
-    <textarea id="comment" placeholder="Your endorsement"></textarea>
-    <button id="submitBtn">Submit</button>
+<div class="main-layout">
 
-    <h2>What People Are Saying</h2>
-    <div id="comments"></div>
+    <nav class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="resume.html">Resume</a>
+        <a href="endorsements.html">Endorsements</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="content">
+
+        <h1>Leave an Endorsement</h1>
+
+        <div class="endorsement-form">
+            <input id="name" placeholder="Your Name">
+            <input id="contact" placeholder="Email or Phone (optional)">
+            <textarea id="comment" placeholder="Your endorsement"></textarea>
+            <button id="submitBtn" class="download-btn">Submit</button>
+        </div>
+
+        <hr><br>
+
+        <h2>What People Are Saying</h2>
+        <div id="comments"></div>
+
+    </div>
+
 </div>
 
 <script type="module">
@@ -47,9 +82,14 @@ async function init() {
 }
 
 document.getElementById("submitBtn").addEventListener("click", async () => {
-    const name = name.value;
-    const contact = contact.value;
-    const comment = comment.value;
+    const name = document.getElementById("name").value;
+    const contact = document.getElementById("contact").value;
+    const comment = document.getElementById("comment").value;
+
+    if (!name || !comment) {
+        alert("Please enter your name and comment");
+        return;
+    }
 
     await addDoc(collection(db, "endorsements"), {
         name,
@@ -62,26 +102,33 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
 });
 
 async function loadComments() {
-    const snapshot = await getDocs(collection(db, "endorsements"));
-    const div = document.getElementById("comments");
-    div.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "endorsements"));
+    const commentsDiv = document.getElementById("comments");
+    commentsDiv.innerHTML = "";
 
-    snapshot.forEach((d) => {
-        const data = d.data();
+    querySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
 
-        const card = document.createElement("div");
-        card.innerHTML = `
+        const div = document.createElement("div");
+        div.className = "comment-card";
+
+        let deleteButton = "";
+        if (data.uid === currentUID) {
+            deleteButton = `<button onclick="deleteComment('${docSnap.id}')" class="download-btn">Delete</button>`;
+        }
+
+        div.innerHTML = `
             <strong>${data.name}</strong><br>
             ${data.comment}<br>
             <em>${data.contact || ""}</em><br><br>
-            ${data.uid === currentUID ? `<button onclick="deleteComment('${d.id}')">Delete</button>` : ""}
-            <hr>
+            ${deleteButton}
         `;
-        div.appendChild(card);
+
+        commentsDiv.appendChild(div);
     });
 }
 
-window.deleteComment = async function(id) {
+window.deleteComment = async function (id) {
     await deleteDoc(doc(db, "endorsements", id));
     location.reload();
 };
