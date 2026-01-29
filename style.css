@@ -177,5 +177,47 @@ h1, h2, h3 {
         height: 500px;
     }
 }
+/* -------- Endorsement Form Styling -------- */
 
+.endorsement-form {
+    max-width: 600px;
+}
 
+.endorsement-form input,
+.endorsement-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    background-color: #fafafa;
+}
+
+/* Focus effect */
+.endorsement-form input:focus,
+.endorsement-form textarea:focus {
+    outline: none;
+    border-color: #1e1e1e;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(30,30,30,0.08);
+}
+
+/* Textarea size */
+.endorsement-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Placeholder styling */
+.endorsement-form input::placeholder,
+.endorsement-form textarea::placeholder {
+    color: #888;
+}
+
+/* Submit button spacing */
+#submitBtn {
+    margin-top: 5px;
+}
