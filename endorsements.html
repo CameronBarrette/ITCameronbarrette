@@ -1,3 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endorsements | Cameron Barrette</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<header class="top-banner">
+    <div class="left">
+        <img src="me.jpg.webp" alt="Cameron Barrette" class="profile-pic">
+    </div>
+    <div class="center">Cameron Barrette | IT & CyberSecurity</div>
+    <div class="right">
+        <a href="https://www.linkedin.com/in/cameron-barrette-it/" target="_blank" class="top-link">
+            LinkedIn
+        </a>
+    </div>
+</header>
+
+<div class="main-layout">
+
+    <nav class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="resume.html">Resume</a>
+        <a href="endorsements.html">Endorsements</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="content">
+
+        <h1>Leave an Endorsement</h1>
+
+        <div class="endorsement-form">
+            <input id="name" placeholder="Your Name">
+            <input id="contact" placeholder="Email or Phone (optional)">
+            <textarea id="comment" placeholder="Your endorsement"></textarea>
+            <button onclick="addComment()" class="download-btn">Submit</button>
+        </div>
+
+        <hr><br>
+
+        <h2>What People Are Saying</h2>
+        <div id="comments"></div>
+
+    </div>
+
+</div>
+
+<style>
+.endorsement-form input,
+.endorsement-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+.comment-card {
+    background: #f3f3f3;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .endorsement-form input,
+    .endorsement-form textarea {
+        font-size: 14px;
+    }
+}
+</style>
+
+<!-- ✅ FIREBASE SCRIPT -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -9,16 +92,17 @@ const firebaseConfig = {
   projectId: "portfolio-cb9aa",
   storageBucket: "portfolio-cb9aa.firebasestorage.app",
   messagingSenderId: "1005509574520",
-  appId: "1:1005509574520:web:285a432471025fa506128d",
-  measurementId: "G-6SX1C69ZEW"
+  appId: "1:1005509574520:web:285a432471025fa506128d"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// Sign user in anonymously (gives them a UID)
-await signInAnonymously(auth);
+// Login anonymously first
+signInAnonymously(auth).then(() => {
+    loadComments();
+});
 
 window.addComment = async function () {
     const name = document.getElementById("name").value;
@@ -36,29 +120,44 @@ window.addComment = async function () {
 };
 
 async function loadComments() {
-    const querySnapshot = await getDocs(collection(db, "endorsements"));
-    const commentsDiv = document.getElementById("comments");
+    const snapshot = await getDocs(collection(db, "endorsements"));
+    const container = document.getElementById("comments");
+    container.innerHTML = "";
 
-    querySnapshot.forEach((docSnap) => {
+    const currentUID = auth.currentUser.uid;
+
+    // 🔍 First check: has this user ever made a comment?
+    let userHasCommented = false;
+    snapshot.forEach(docSnap => {
+        if (docSnap.data().uid === currentUID) {
+            userHasCommented = true;
+        }
+    });
+
+    // Now render comments
+    snapshot.forEach((docSnap) => {
         const data = docSnap.data();
 
-        const div = document.createElement("div");
-        div.className = "comment-card";
+        const card = document.createElement("div");
+        card.className = "comment-card";
 
-        // Only show delete button if THIS user owns the comment
-        let deleteButton = "";
-        if (data.uid === auth.currentUser.uid) {
-            deleteButton = `<button onclick="deleteComment('${docSnap.id}')" class="download-btn">Delete</button>`;
+        let deleteBtn = "";
+
+        // Show delete ONLY if:
+        // 1) User has commented before
+        // 2) This is THEIR comment
+        if (userHasCommented && data.uid === currentUID) {
+            deleteBtn = `<button onclick="deleteComment('${docSnap.id}')" class="download-btn">Delete</button>`;
         }
 
-        div.innerHTML = `
+        card.innerHTML = `
             <strong>${data.name}</strong><br>
             ${data.comment}<br>
             <em>${data.contact || ""}</em><br><br>
-            ${deleteButton}
+            ${deleteBtn}
         `;
 
-        commentsDiv.appendChild(div);
+        container.appendChild(card);
     });
 }
 
@@ -66,6 +165,7 @@ window.deleteComment = async function (id) {
     await deleteDoc(doc(db, "endorsements", id));
     location.reload();
 };
-
-loadComments();
 </script>
+
+</body>
+</html>
