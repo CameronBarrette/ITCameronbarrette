@@ -13,6 +13,7 @@ html, body {
     background-color: #fdfbfb;
     animation: pageFade 0.6s ease-in-out;
     overflow-x: hidden;
+    min-height: 100%;
 }
 
 @keyframes pageFade {
@@ -64,24 +65,22 @@ html, body {
     transform: scale(1.05);
 }
 
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT (FIXED) ===== */
 .main-layout {
     display: flex;
-    min-height: 100vh;
+    min-height: calc(100vh - 110px);
 }
 
-/* ===== SIDEBAR ===== */
+/* ===== SIDEBAR (FIXED) ===== */
 .sidebar {
     width: 220px;
     min-width: 220px;
     background-color: #2b2b2b;
     padding-top: 20px;
     flex-shrink: 0;
-    position: sticky;
-    top: 110px;
-    height: fit-content;
 }
 
+/* ===== LINKS ===== */
 .sidebar a {
     display: block;
     color: white;
@@ -132,18 +131,6 @@ li { margin-bottom: 10px; }
     border-radius: 12px;
 }
 
-/* ===== SCROLL ANIMATIONS ===== */
-.animate {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: 0.7s ease;
-}
-
-.animate.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* ===== DARK MODE ===== */
 body.dark-mode {
     background-color: #121212;
@@ -155,7 +142,7 @@ body.dark-mode .sidebar {
     background-color: #1a1a1a;
 }
 
-/* ===== DARK MODE POPUP (FIXED — no layout breaking blur) ===== */
+/* ===== DARK MODE POPUP ===== */
 .dark-overlay {
     position: fixed;
     inset: 0;
@@ -176,9 +163,7 @@ body.dark-mode .sidebar {
     width: 320px;
 }
 
-/* REMOVE ALL .blur FILTERS — they break sticky */
-
-/* ===== MOBILE ===== */
+/* ===== MOBILE (sticky only here) ===== */
 @media (max-width: 768px) {
 
     .top-banner {
@@ -194,6 +179,7 @@ body.dark-mode .sidebar {
 
     .main-layout {
         flex-direction: column;
+        min-height: auto;
     }
 
     .sidebar {
