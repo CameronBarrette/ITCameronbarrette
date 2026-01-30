@@ -75,8 +75,21 @@ resume, and follow my journey into the IT and cybersecurity field.
 
 <!-- ONE DARK MODE SCRIPT -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function setDark(choice) {
+    localStorage.setItem("darkModeChosen", "true");
 
+    if (choice) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "true");
+    } else {
+        localStorage.setItem("darkMode", "false");
+    }
+
+    document.getElementById("overlay").style.display = "none";
+    document.body.classList.remove("blur");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.getElementById("overlay");
     const chosen = localStorage.getItem("darkModeChosen");
     const dark = localStorage.getItem("darkMode");
@@ -87,25 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!chosen) {
         overlay.style.display = "flex";
-        document.querySelector(".main-layout").classList.add("blur");
-        document.querySelector(".top-banner").classList.add("blur");
+        document.body.classList.add("blur");
     }
-
-    window.setDark = function(choice) {
-        localStorage.setItem("darkModeChosen", "true");
-
-        if (choice) {
-            document.body.classList.add("dark-mode");
-            localStorage.setItem("darkMode", "true");
-        } else {
-            localStorage.setItem("darkMode", "false");
-        }
-
-        overlay.style.display = "none";
-        document.querySelector(".main-layout").classList.remove("blur");
-        document.querySelector(".top-banner").classList.remove("blur");
-    };
-
 });
 </script>
 
