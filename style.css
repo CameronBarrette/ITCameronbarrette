@@ -269,6 +269,37 @@ h1, h2, h3, p, ul, li {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+/* ===== SUBMIT BUTTON UPGRADE ===== */
+.endorsement-form button {
+    background-color: #1e1e1e;
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.endorsement-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.endorsement-form button:active {
+    transform: scale(0.97);
+}
+/* ===== FIX LINKEDIN COLOR ===== */
+.top-link {
+    color: white !important;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.top-link:hover {
+    text-decoration: underline;
+}
 
 
 
