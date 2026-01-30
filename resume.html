@@ -83,6 +83,52 @@ window.onload = function () {
 };
 </script>
 
+<div id="overlay" class="dark-overlay">
+    <div class="dark-popup">
+        <h3>Would you like to enable Dark Mode?</h3>
+        <button onclick="setDark(true)">Yes</button>
+        <button onclick="setDark(false)">No</button>
+    </div>
+</div>
+
+<script>
+function setDark(choice) {
+    localStorage.setItem("darkModeChosen", "true");
+
+    if (choice) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "true");
+    } else {
+        localStorage.setItem("darkMode", "false");
+    }
+
+    closePopup();
+}
+
+function closePopup() {
+    document.getElementById("overlay").style.display = "none";
+    document.querySelector(".main-layout").classList.remove("blur");
+    document.querySelector(".top-banner").classList.remove("blur");
+}
+
+window.onload = function () {
+    const chosen = localStorage.getItem("darkModeChosen");
+    const dark = localStorage.getItem("darkMode");
+
+    // Apply dark mode if previously chosen
+    if (dark === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    // Only show popup if user has NEVER answered before
+    if (!chosen) {
+        document.getElementById("overlay").style.display = "flex";
+        document.querySelector(".main-layout").classList.add("blur");
+        document.querySelector(".top-banner").classList.add("blur");
+    }
+};
+</script>
+
 <body>
 
 <header class="top-banner">
