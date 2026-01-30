@@ -23,6 +23,27 @@ document.querySelectorAll(".animate").forEach(el => {
 });
 </script>
 
+<div class="dark-popup" id="darkPopup">
+    <span>Enable Dark Mode?</span>
+    <button onclick="toggleDarkMode()">Yes</button>
+</div>
+
+<script>
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode",
+        document.body.classList.contains("dark-mode")
+    );
+    document.getElementById("darkPopup").style.display = "none";
+}
+
+window.onload = function () {
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark-mode");
+    }
+};
+</script>
+
 <body>
 
 <header class="top-banner">
