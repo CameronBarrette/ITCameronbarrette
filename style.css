@@ -130,6 +130,45 @@ html, body {
         padding: 20px;
     }
 }
+/* ===== TYPOGRAPHY SPACING FIX ===== */
+
+h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 26px;
+    margin-bottom: 18px;
+    margin-top: 10px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    margin-top: 10px;
+}
+
+p {
+    margin-bottom: 16px;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+ul {
+    margin-bottom: 18px;
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+strong {
+    font-weight: 600;
+}
+
 
 
 
