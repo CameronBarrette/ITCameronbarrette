@@ -230,5 +230,46 @@ h2 {
         height: 500px;
     }
 }
+.download-btn:active {
+    transform: scale(0.97);
+}
+p, ul {
+    animation: fadeText 0.9s ease-in-out;
+}
+
+@keyframes fadeText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.about-photo img {
+    animation: fadeImage 1s ease-in-out;
+}
+
+@keyframes fadeImage {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.sidebar a {
+    position: relative;
+}
+
+.sidebar a::after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    bottom: 8px;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.sidebar a:hover::after {
+    width: 60%;
+}
+html {
+    scroll-behavior: smooth;
+}
+
 
 
