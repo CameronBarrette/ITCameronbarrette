@@ -234,17 +234,17 @@ strong { font-weight: 600; }
         flex-direction: column;
     }
 
-    .sidebar {
-        position: fixed;
-        top: 140px;
-        left: 0;
+.sidebar {
+        position: sticky;   /* THIS is the key */
+        top: 0;
+        z-index: 2000;
         width: 100%;
-        z-index: 3000;
         background-color: #2b2b2b;
+
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 8px 0;
+        padding: 10px 0;
     }
 
     .sidebar a {
