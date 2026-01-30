@@ -46,6 +46,43 @@ window.onload = function () {
 };
 </script>
 
+<div id="overlay" class="dark-overlay" style="display:none;">
+    <div class="dark-popup">
+        <h3>Enable Dark Mode?</h3>
+        <button class="dark-yes" onclick="setDark(true)">Yes</button>
+        <button class="dark-no" onclick="setDark(false)">No</button>
+    </div>
+</div>
+
+<script>
+function setDark(choice) {
+    if (choice) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "true");
+    } else {
+        localStorage.setItem("darkMode", "false");
+    }
+
+    document.getElementById("overlay").style.display = "none";
+    document.querySelector(".main-layout").classList.remove("blur");
+    document.querySelector(".top-banner").classList.remove("blur");
+}
+
+window.onload = function () {
+    const saved = localStorage.getItem("darkMode");
+
+    if (saved === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    if (saved === null) {
+        document.getElementById("overlay").style.display = "flex";
+        document.querySelector(".main-layout").classList.add("blur");
+        document.querySelector(".top-banner").classList.add("blur");
+    }
+};
+</script>
+
 <body>
 
 <header class="top-banner">
@@ -90,6 +127,3 @@ window.onload = function () {
 
 </body>
 </html>
-
-
-
