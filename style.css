@@ -285,3 +285,6 @@ body.dark-mode textarea {
         width: 200px;
     }
 }
+body.blur > *:not(#overlay) {
+    filter: blur(6px);
+}
