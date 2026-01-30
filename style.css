@@ -9,6 +9,12 @@ html, body {
     height: 100%;
     font-family: 'Inter', sans-serif;
     background-color: #fdfbfb;
+    animation: pageFade 0.6s ease-in-out;
+}
+
+@keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* ===== TOP BANNER ===== */
@@ -19,6 +25,12 @@ html, body {
     background-color: #1e1e1e;
     color: white;
     padding: 20px 40px;
+    animation: slideDown 0.7s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .left { flex: 1; }
@@ -38,22 +50,27 @@ html, body {
     width: 150px;
     border-radius: 50%;
     object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ===== MAIN LAYOUT (THE FIX) ===== */
+.profile-pic:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+}
+
+/* ===== MAIN LAYOUT ===== */
 .main-layout {
     display: flex;
-    align-items: stretch;   /* forces equal height */
-    min-height: calc(100vh - 190px); /* accounts for banner */
+    align-items: stretch;
+    min-height: calc(100vh - 190px);
 }
 
-/* ===== SIDEBAR (LOCKED SIZE) ===== */
+/* ===== SIDEBAR ===== */
 .sidebar {
     width: 220px;
     background-color: #2b2b2b;
     padding-top: 20px;
-
-    flex-shrink: 0;          /* NEVER shrink */
+    flex-shrink: 0;
 }
 
 .sidebar a {
@@ -61,31 +78,86 @@ html, body {
     color: white;
     padding: 15px;
     text-decoration: none;
+    position: relative;
+    transition: background 0.2s ease, padding-left 0.2s ease;
 }
 
 .sidebar a:hover {
     background-color: #444;
+    padding-left: 22px;
+}
+
+.sidebar a::after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    bottom: 8px;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.sidebar a:hover::after {
+    width: 60%;
 }
 
 /* ===== CONTENT ===== */
 .content {
     flex: 1;
     padding: 40px;
+    animation: contentFade 0.8s ease;
 }
 
-/* ===== ANIMATIONS (kept simple & safe) ===== */
-.animate {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.7s ease;
+@keyframes contentFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.animate.show {
-    opacity: 1;
-    transform: translateY(0);
+/* ===== TYPOGRAPHY ===== */
+h1 { font-size: 34px; margin-bottom: 20px; }
+h2 { font-size: 26px; margin-bottom: 18px; margin-top: 10px; }
+h3 { font-size: 20px; margin-bottom: 14px; margin-top: 10px; }
+
+p {
+    margin-bottom: 16px;
+    font-size: 17px;
+    line-height: 1.7;
 }
 
-/* ===== FORMS ===== */
+ul {
+    margin-bottom: 18px;
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+strong { font-weight: 600; }
+
+/* ===== BUTTONS ===== */
+.download-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #1e1e1e;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 14px rgba(0,0,0,0.2);
+}
+
+.download-btn:active {
+    transform: scale(0.97);
+}
+
+/* ===== FORM ===== */
 .endorsement-form input,
 .endorsement-form textarea {
     width: 100%;
@@ -93,9 +165,58 @@ html, body {
     margin-bottom: 18px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
-/* ===== MOBILE (COMPLETELY REBUILT CORRECTLY) ===== */
+.endorsement-form input:focus,
+.endorsement-form textarea:focus {
+    outline: none;
+    border-color: #1e1e1e;
+    box-shadow: 0 0 0 3px rgba(30,30,30,0.08);
+    background: #fff;
+}
+
+.endorsement-form button {
+    background-color: #1e1e1e;
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.endorsement-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* ===== LINKEDIN COLOR ===== */
+.top-link {
+    color: white !important;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.top-link:hover {
+    text-decoration: underline;
+}
+
+/* ===== ABOUT PHOTO ===== */
+.about-photo {
+    text-align: center;
+}
+
+.about-photo img {
+    width: 320px;
+    max-width: 90%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* ===== MOBILE FIX ===== */
 @media (max-width: 768px) {
 
     .top-banner {
@@ -114,11 +235,16 @@ html, body {
     }
 
     .sidebar {
+        position: fixed;
+        top: 140px;
+        left: 0;
         width: 100%;
+        z-index: 3000;
+        background-color: #2b2b2b;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .sidebar a {
@@ -127,216 +253,11 @@ html, body {
     }
 
     .content {
+        margin-top: 130px;
         padding: 20px;
     }
-}
-/* ===== TYPOGRAPHY SPACING FIX ===== */
 
-h1 {
-    font-size: 34px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 26px;
-    margin-bottom: 18px;
-    margin-top: 10px;
-}
-
-h3 {
-    font-size: 20px;
-    margin-bottom: 14px;
-    margin-top: 10px;
-}
-
-p {
-    margin-bottom: 16px;
-    font-size: 17px;
-    line-height: 1.7;
-}
-
-ul {
-    margin-bottom: 18px;
-    padding-left: 22px;
-}
-
-li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-strong {
-    font-weight: 600;
-}
-/* ===== SAFE PROFESSIONAL ANIMATIONS ===== */
-
-/* Fade page in */
-body {
-    animation: pageFade 0.6s ease-in-out;
-}
-
-@keyframes pageFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Header slide in */
-.top-banner {
-    animation: slideDown 0.7s ease;
-}
-
-@keyframes slideDown {
-    from { transform: translateY(-40px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Sidebar links hover effect */
-.sidebar a {
-    position: relative;
-    transition: background 0.2s ease, padding-left 0.2s ease;
-}
-
-.sidebar a:hover {
-    padding-left: 22px;
-}
-
-/* Underline grow effect */
-.sidebar a::after {
-    content: "";
-    position: absolute;
-    left: 15px;
-    bottom: 8px;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s ease;
-}
-
-.sidebar a:hover::after {
-    width: 60%;
-}
-
-/* Profile picture subtle hover */
-.profile-pic {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.profile-pic:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-}
-
-/* Content fade & lift */
-.content {
-    animation: contentFade 0.8s ease;
-}
-
-@keyframes contentFade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Buttons lift */
-.download-btn {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.download-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 14px rgba(0,0,0,0.2);
-}
-
-.download-btn:active {
-    transform: scale(0.97);
-}
-
-/* Form inputs focus glow */
-.endorsement-form input:focus,
-.endorsement-form textarea:focus {
-    outline: none;
-    border-color: #1e1e1e;
-    box-shadow: 0 0 0 3px rgba(30,30,30,0.08);
-    background: #fff;
-    transition: all 0.2s ease;
-}
-
-/* Smooth text appearance */
-h1, h2, h3, p, ul, li {
-    animation: textFade 0.9s ease;
-}
-
-@keyframes textFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-/* ===== SUBMIT BUTTON UPGRADE ===== */
-.endorsement-form button {
-    background-color: #1e1e1e;
-    color: white;
-    border: none;
-    padding: 14px 22px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.endorsement-form button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-.endorsement-form button:active {
-    transform: scale(0.97);
-}
-/* ===== FIX LINKEDIN COLOR ===== */
-.top-link {
-    color: white !important;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.top-link:hover {
-    text-decoration: underline;
-}
-/* ===== ABOUT ME PICTURE SIZE FIX ===== */
-.about-photo img {
-    width: 320px;      /* desktop size */
-    max-width: 90%;
-    height: auto;
-    border-radius: 12px;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
     .about-photo img {
         width: 200px;
-    }
-}
-/* Center the About Me picture */
-.about-photo {
-    text-align: center;
-}
-/* ===== FIX STICKY NAV TABS ON PHONES ===== */
-@media (max-width: 768px) {
-
-    .sidebar {
-        position: fixed;
-        top: 120px;              /* sits under the top banner */
-        left: 0;
-        width: 100%;
-        z-index: 3000;
-        background-color: #2b2b2b;
-
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 8px 0;
-    }
-
-    /* push content down so it doesn't go under the fixed nav */
-    .content {
-        margin-top: 110px;
     }
 }
