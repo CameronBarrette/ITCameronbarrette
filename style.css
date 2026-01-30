@@ -7,6 +7,19 @@ body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: #fdfbfb;
+    html, body {
+    height: 100%;
+}
+
+.main-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    min-height: 100vh;
+}
+
 }
 
 /* Make text elements use Inter */
@@ -265,6 +278,10 @@ p, ul {
 html {
     scroll-behavior: smooth;
 }
+
+
+
+
 
 
 
