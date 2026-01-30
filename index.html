@@ -3,160 +3,50 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Cameron Barrette</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
-<script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-});
+<body>
 
-document.querySelectorAll(".animate").forEach(el => {
-  observer.observe(el);
-});
-</script>
-
-<div class="dark-popup" id="darkPopup">
-    <span>Enable Dark Mode?</span>
-    <button onclick="toggleDarkMode()">Yes</button>
-</div>
-
-<script>
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode",
-        document.body.classList.contains("dark-mode")
-    );
-    document.getElementById("darkPopup").style.display = "none";
-}
-
-window.onload = function () {
-    if (localStorage.getItem("darkMode") === "true") {
-        document.body.classList.add("dark-mode");
-    }
-};
-</script>
-
-<div id="overlay" class="dark-overlay" style="display:none;">
-    <div class="dark-popup">
-        <h3>Enable Dark Mode?</h3>
-        <button class="dark-yes" onclick="setDark(true)">Yes</button>
-        <button class="dark-no" onclick="setDark(false)">No</button>
-    </div>
-</div>
-
-<script>
-function setDark(choice) {
-    if (choice) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "true");
-    } else {
-        localStorage.setItem("darkMode", "false");
-    }
-
-    document.getElementById("overlay").style.display = "none";
-    document.querySelector(".main-layout").classList.remove("blur");
-    document.querySelector(".top-banner").classList.remove("blur");
-}
-
-window.onload = function () {
-    const saved = localStorage.getItem("darkMode");
-
-    if (saved === "true") {
-        document.body.classList.add("dark-mode");
-    }
-
-    if (saved === null) {
-        document.getElementById("overlay").style.display = "flex";
-        document.querySelector(".main-layout").classList.add("blur");
-        document.querySelector(".top-banner").classList.add("blur");
-    }
-};
-</script>
-
+<!-- DARK MODE POPUP -->
 <div id="overlay" class="dark-overlay">
     <div class="dark-popup">
-        <h3>Would you like to enable Dark Mode?</h3>
+        <h3>Enable Dark Mode?</h3>
         <button onclick="setDark(true)">Yes</button>
         <button onclick="setDark(false)">No</button>
     </div>
 </div>
-
-<script>
-function setDark(choice) {
-    localStorage.setItem("darkModeChosen", "true");
-
-    if (choice) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "true");
-    } else {
-        localStorage.setItem("darkMode", "false");
-    }
-
-    closePopup();
-}
-
-function closePopup() {
-    document.getElementById("overlay").style.display = "none";
-    document.querySelector(".main-layout").classList.remove("blur");
-    document.querySelector(".top-banner").classList.remove("blur");
-}
-
-window.onload = function () {
-    const chosen = localStorage.getItem("darkModeChosen");
-    const dark = localStorage.getItem("darkMode");
-
-    // Apply dark mode if previously chosen
-    if (dark === "true") {
-        document.body.classList.add("dark-mode");
-    }
-
-    // Only show popup if user has NEVER answered before
-    if (!chosen) {
-        document.getElementById("overlay").style.display = "flex";
-        document.querySelector(".main-layout").classList.add("blur");
-        document.querySelector(".top-banner").classList.add("blur");
-    }
-};
-</script>
-
-<body>
 
 <header class="top-banner">
     <div class="left">
         <img src="me.jpg.webp" alt="Cameron Barrette" class="profile-pic">
     </div>
     <div class="center">Cameron Barrette | IT & CyberSecurity</div>
- <div class="right">
-    <a href="https://www.linkedin.com/in/cameron-barrette-it/" target="_blank" class="top-link">
-        LinkedIn
-    </a>
-</div>
-
+    <div class="right">
+        <a href="https://www.linkedin.com/in/cameron-barrette-it/" target="_blank" class="top-link">
+            LinkedIn
+        </a>
+    </div>
 </header>
 
 <div class="main-layout">
     
-    <nav class="sidebar">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="certifications.html">Certifications</a>
-        <a href="resume.html">Resume</a>
-        <a href="endorsements.html">Endorsements</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+<nav class="sidebar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="certifications.html">Certifications</a>
+    <a href="resume.html">Resume</a>
+    <a href="endorsements.html">Endorsements</a>
+    <a href="contact.html">Contact</a>
+</nav>
 
-    <div class="content">
+<div class="content">
 
-       <h1>Aspiring Cybersecurity Professional</h1>
+<h1>Aspiring Cybersecurity Professional</h1>
 
 <p>
 Welcome to my IT and Cybersecurity portfolio. I am currently training at Job Corps
@@ -180,11 +70,44 @@ Use the navigation menu to learn more about me, view my projects, certifications
 resume, and follow my journey into the IT and cybersecurity field.
 </p>
 
-    </div>
-
 </div>
+</div>
+
+<!-- ONE DARK MODE SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const overlay = document.getElementById("overlay");
+    const chosen = localStorage.getItem("darkModeChosen");
+    const dark = localStorage.getItem("darkMode");
+
+    if (dark === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    if (!chosen) {
+        overlay.style.display = "flex";
+        document.querySelector(".main-layout").classList.add("blur");
+        document.querySelector(".top-banner").classList.add("blur");
+    }
+
+    window.setDark = function(choice) {
+        localStorage.setItem("darkModeChosen", "true");
+
+        if (choice) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("darkMode", "true");
+        } else {
+            localStorage.setItem("darkMode", "false");
+        }
+
+        overlay.style.display = "none";
+        document.querySelector(".main-layout").classList.remove("blur");
+        document.querySelector(".top-banner").classList.remove("blur");
+    };
+
+});
+</script>
 
 </body>
 </html>
-
-
