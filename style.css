@@ -300,6 +300,25 @@ h1, h2, h3, p, ul, li {
 .top-link:hover {
     text-decoration: underline;
 }
+/* ===== ABOUT ME PICTURE SIZE FIX ===== */
+.about-photo img {
+    width: 320px;      /* desktop size */
+    max-width: 90%;
+    height: auto;
+    border-radius: 12px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .about-photo img {
+        width: 200px;
+    }
+}
+/* Center the About Me picture */
+.about-photo {
+    text-align: center;
+}
+
 
 
 
