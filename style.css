@@ -2,33 +2,12 @@
     box-sizing: border-box;
 }
 
-/* Page background + main font */
-body {
+/* ===== PAGE BASE ===== */
+html, body {
+    height: 100%;
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: #fdfbfb;
-    html, body {
-    height: 100%;
-}
-
-.main-layout {
-    min-height: 100vh;
-    display: flex;
-}
-
-.sidebar {
-    min-height: 100vh;
-}
-
-}
-
-/* Make text elements use Inter */
-p, a, li, h1, h2, h3, h4 {
-    font-family: 'Inter', sans-serif;
-}
-
-h1, h2, h3 {
-    font-weight: 600;
 }
 
 /* ===== TOP BANNER ===== */
@@ -58,22 +37,19 @@ h1, h2, h3 {
     width: 150px;
     border-radius: 50%;
     object-fit: cover;
-    transition: transform 0.3s ease;
 }
 
-.profile-pic:hover {
-    transform: scale(1.05);
-}
-
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT (IMPORTANT) ===== */
 .main-layout {
-    display: block; /* FIX FOR STICKY */
+    display: flex;
+    min-height: 100vh;
 }
 
 .sidebar {
     width: 200px;
     background-color: #2b2b2b;
     padding-top: 20px;
+    min-height: 100vh;
 }
 
 .sidebar a {
@@ -81,52 +57,18 @@ h1, h2, h3 {
     color: white;
     padding: 15px;
     text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    position: relative;
 }
 
 .sidebar a:hover {
     background-color: #444;
 }
 
-/* underline animation */
-.sidebar a::after {
-    content: "";
-    position: absolute;
-    left: 15px;
-    bottom: 8px;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s ease;
-}
-
-.sidebar a:hover::after {
-    width: 60%;
-}
-
 .content {
+    flex: 1;
     padding: 20px;
-    animation: fadeIn 0.8s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== LINKS & BUTTONS ===== */
-.top-link {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.top-link:hover {
-    text-decoration: underline;
-}
-
+/* ===== BUTTONS ===== */
 .download-btn {
     display: inline-block;
     padding: 12px 20px;
@@ -134,143 +76,50 @@ h1, h2, h3 {
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.download-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.download-btn:active {
-    transform: scale(0.97);
-}
-
-/* ===== ABOUT PHOTO ===== */
-.about-photo {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.about-photo img {
-    width: 250px;
-    border-radius: 12px;
-    animation: fadeImage 1s ease-in-out;
-}
-
-@keyframes fadeImage {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
 }
 
 /* ===== ENDORSEMENT FORM ===== */
-.endorsement-form {
-    max-width: 600px;
-}
-
 .endorsement-form input,
 .endorsement-form textarea {
     width: 100%;
-    padding: 14px 16px;
+    padding: 14px;
     margin-bottom: 18px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
-    font-size: 16px;
-    background-color: #fafafa;
-    transition: all 0.2s ease;
 }
 
-.endorsement-form input:focus,
-.endorsement-form textarea:focus {
-    outline: none;
-    border-color: #1e1e1e;
-    background-color: white;
-    box-shadow: 0 0 0 3px rgba(30,30,30,0.08);
-}
-
-.endorsement-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-/* ===== TEXT ANIMATIONS ===== */
-h2 {
-    animation: slideIn 0.6s ease forwards;
-}
-
-@keyframes slideIn {
-    from { opacity: 0; transform: translateX(-15px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-p, ul {
-    animation: fadeText 0.9s ease-in-out;
-}
-
-@keyframes fadeText {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.comment-card {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-/* ===== MOBILE RESPONSIVE ===== */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
-
-    body {
-        font-size: 16px;
-    }
 
     .top-banner {
         flex-direction: column;
-        align-items: center;
         text-align: center;
-        padding: 15px;
     }
 
     .profile-pic {
         width: 90px;
         height: 90px;
-        margin-bottom: 10px;
     }
 
-    .center {
-        font-size: 20px;
-        margin: 10px 0;
+    .main-layout {
+        flex-direction: column;
     }
 
-    /* NAV BAR THAT STICKS */
+    /* Sticky nav links only */
     .sidebar {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 10px 0;
 
         position: sticky;
         top: 0;
         z-index: 2000;
-        background-color: #2b2b2b;
     }
 
     .sidebar a {
         padding: 8px 10px;
         font-size: 13px;
-    }
-
-    .content {
-        padding: 15px;
-    }
-
-    .content h1 { font-size: 22px; }
-    .content h2 { font-size: 18px; }
-    .content p, .content li { font-size: 15px; }
-
-    iframe {
-        height: 500px;
     }
 }
 
