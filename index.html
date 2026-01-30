@@ -8,6 +8,21 @@
 <link rel="stylesheet" href="./style.css">
 
 </head>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+});
+
+document.querySelectorAll(".animate").forEach(el => {
+  observer.observe(el);
+});
+</script>
+
 <body>
 
 <header class="top-banner">
@@ -67,5 +82,4 @@ resume, and follow my journey into the IT and cybersecurity field.
 
 </body>
 </html>
-
 
