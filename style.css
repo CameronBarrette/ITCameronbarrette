@@ -262,18 +262,13 @@ h2 {
 .comment-card {
     animation: fadeIn 0.5s ease-in-out;
 }
-/* -------- Sticky Sidebar on Mobile -------- */
+/* ===== Sticky TOP banner on phones ===== */
 @media (max-width: 768px) {
 
-    .sidebar {
+    .top-banner {
         position: sticky;
         top: 0;
-        z-index: 1000;
-        background-color: #2b2b2b;
+        z-index: 2000;
     }
 
 }
-.sidebar a {
-    white-space: nowrap;
-}
-
