@@ -4,128 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Cameron Barrette</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
 </head>
-
-<script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-});
-
-document.querySelectorAll(".animate").forEach(el => {
-  observer.observe(el);
-});
-</script>
-
-<div class="dark-popup" id="darkPopup">
-    <span>Enable Dark Mode?</span>
-    <button onclick="toggleDarkMode()">Yes</button>
-</div>
-
-<script>
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode",
-        document.body.classList.contains("dark-mode")
-    );
-    document.getElementById("darkPopup").style.display = "none";
-}
-
-window.onload = function () {
-    if (localStorage.getItem("darkMode") === "true") {
-        document.body.classList.add("dark-mode");
-    }
-};
-</script>
-
-<div id="overlay" class="dark-overlay" style="display:none;">
-    <div class="dark-popup">
-        <h3>Enable Dark Mode?</h3>
-        <button class="dark-yes" onclick="setDark(true)">Yes</button>
-        <button class="dark-no" onclick="setDark(false)">No</button>
-    </div>
-</div>
-
-<script>
-function setDark(choice) {
-    if (choice) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "true");
-    } else {
-        localStorage.setItem("darkMode", "false");
-    }
-
-    document.getElementById("overlay").style.display = "none";
-    document.querySelector(".main-layout").classList.remove("blur");
-    document.querySelector(".top-banner").classList.remove("blur");
-}
-
-window.onload = function () {
-    const saved = localStorage.getItem("darkMode");
-
-    if (saved === "true") {
-        document.body.classList.add("dark-mode");
-    }
-
-    if (saved === null) {
-        document.getElementById("overlay").style.display = "flex";
-        document.querySelector(".main-layout").classList.add("blur");
-        document.querySelector(".top-banner").classList.add("blur");
-    }
-};
-</script>
-
-<div id="overlay" class="dark-overlay">
-    <div class="dark-popup">
-        <h3>Would you like to enable Dark Mode?</h3>
-        <button onclick="setDark(true)">Yes</button>
-        <button onclick="setDark(false)">No</button>
-    </div>
-</div>
-
-<script>
-function setDark(choice) {
-    localStorage.setItem("darkModeChosen", "true");
-
-    if (choice) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "true");
-    } else {
-        localStorage.setItem("darkMode", "false");
-    }
-
-    closePopup();
-}
-
-function closePopup() {
-    document.getElementById("overlay").style.display = "none";
-    document.querySelector(".main-layout").classList.remove("blur");
-    document.querySelector(".top-banner").classList.remove("blur");
-}
-
-window.onload = function () {
-    const chosen = localStorage.getItem("darkModeChosen");
-    const dark = localStorage.getItem("darkMode");
-
-    // Apply dark mode if previously chosen
-    if (dark === "true") {
-        document.body.classList.add("dark-mode");
-    }
-
-    // Only show popup if user has NEVER answered before
-    if (!chosen) {
-        document.getElementById("overlay").style.display = "flex";
-        document.querySelector(".main-layout").classList.add("blur");
-        document.querySelector(".top-banner").classList.add("blur");
-    }
-};
-</script>
 
 <body>
 
@@ -269,11 +151,47 @@ reach out through my contact page or LinkedIn.
 </div>
 </div>
 
+<!-- DARK MODE POPUP -->
+<div id="overlay" class="dark-overlay">
+    <div class="dark-popup">
+        <h3>Enable Dark Mode?</h3>
+        <button onclick="setDark(true)">Yes</button>
+        <button onclick="setDark(false)">No</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const chosen = localStorage.getItem("darkModeChosen");
+    const dark = localStorage.getItem("darkMode");
+
+    if (dark === "true") {
+        document.body.classList.add("dark-mode");
+    }
+
+    if (!chosen) {
+        document.getElementById("overlay").style.display = "flex";
+        document.querySelector(".main-layout").classList.add("blur");
+        document.querySelector(".top-banner").classList.add("blur");
+    }
+});
+
+function setDark(choice) {
+    localStorage.setItem("darkModeChosen", "true");
+
+    if (choice) {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "true");
+    } else {
+        localStorage.setItem("darkMode", "false");
+    }
+
+    document.getElementById("overlay").style.display = "none";
+    document.querySelector(".main-layout").classList.remove("blur");
+    document.querySelector(".top-banner").classList.remove("blur");
+}
+</script>
+
 </body>
 </html>
-
-
-
-
-
-
